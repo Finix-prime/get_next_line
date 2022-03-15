@@ -6,7 +6,7 @@
 /*   By: pmethira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:17:08 by pmethira          #+#    #+#             */
-/*   Updated: 2022/03/15 16:24:54 by pmethira         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:56:15 by pmethira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ char	*get_next_line(int fd)
 	str = str_left(str);
 	return (line);
 }
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
-/*
+
 int     main(void)
 {
     char    *line;
