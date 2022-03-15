@@ -6,30 +6,25 @@
 /*   By: pmethira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:17:08 by pmethira          #+#    #+#             */
-/*   Updated: 2022/03/13 22:24:56 by pmethira         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:24:54 by pmethira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-const   int BUFFER_SIZE = 42;
-
-char	*read_line(int fd, char *str, char *remain)
+char	*read_line(int fd, char *str)
 {
 	char	*buf;
 	int		byte_read;
 
-	byte_read = -1;
-	while (remain[++byte_read])
-		str[byte_read] = remain[byte_read];
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (0);
 	byte_read = 1;
-	while(!(ft_strchr(str, '\n')) && byte_read)
+	while (!(ft_strchr(str, '\n')) && byte_read != 0)
 	{
 		byte_read = read(fd, buf, BUFFER_SIZE);
-		if (!byte_read)
+		if (byte_read == -1)
 		{
 			free(buf);
 			return (0);
@@ -47,6 +42,8 @@ char	*get_line(char *str)
 	int		i;
 
 	i = 0;
+	if (!str[i])
+		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
 	s = (char *)malloc(sizeof(char) * (i + 1));
@@ -54,6 +51,11 @@ char	*get_line(char *str)
 		return (0);
 	i = 0;
 	while (str[i] && str[i] != '\n')
+	{
+		s[i] = str[i];
+		i++;
+	}
+	if (str[i] == '\n')
 	{
 		s[i] = str[i];
 		i++;
@@ -90,25 +92,22 @@ char	*str_left(char *str)
 
 char	*get_next_line(int fd)
 {
-	char	*str;
-	char	*line;
-	char	*remain;
+	static char	*str;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str = read_line(fd, str, remain);
+	str = read_line(fd, str);
 	if (!str)
-	{
 		return (0);
-	}
 	line = get_line(str);
-	remain = str_left(str);
+	str = str_left(str);
 	return (line);
 }
 
 #include <stdio.h>
 #include <fcntl.h>
-
+/*
 int     main(void)
 {
     char    *line;
@@ -131,7 +130,11 @@ int     main(void)
     line = get_next_line(fd);
     printf("%s -- (%zu)\n\n", line, ft_strlen(line));
 
+ 	line = get_next_line(fd);
+    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
+	
     close(fd);
 
     return (0);
 }
+*/

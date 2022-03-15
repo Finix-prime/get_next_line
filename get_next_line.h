@@ -6,7 +6,7 @@
 /*   By: pmethira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:24:24 by pmethira          #+#    #+#             */
-/*   Updated: 2022/03/13 22:31:31 by pmethira         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:54:44 by pmethira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
