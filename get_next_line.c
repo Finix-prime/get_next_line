@@ -6,7 +6,7 @@
 /*   By: pmethira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:17:08 by pmethira          #+#    #+#             */
-/*   Updated: 2022/03/15 19:56:15 by pmethira         ###   ########.fr       */
+/*   Updated: 2022/03/18 13:16:51 by pmethira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_line(char *str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
-	s = (char *)malloc(sizeof(char) * (i + 1));
+	s = (char *)malloc(sizeof(char) * (i + 2));
 	if (!s)
 		return (0);
 	i = 0;
@@ -104,37 +104,25 @@ char	*get_next_line(int fd)
 	str = str_left(str);
 	return (line);
 }
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 
 int     main(void)
 {
     char    *line;
+	char	*buff;
     int     fd;
 
     fd = open("text.txt", O_RDONLY);
-    line = get_next_line(fd);
-    printf("\n\n----------------------------------------------------\n\n");
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
-
-    line = get_next_line(fd);
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
-
-    line = get_next_line(fd);
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));;
-
-    line = get_next_line(fd);
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
-
-    line = get_next_line(fd);
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
-
- 	line = get_next_line(fd);
-    printf("%s -- (%zu)\n\n", line, ft_strlen(line));
-	
+	buff = "";
+	while (read(fd, buff, BUFFER_SIZE))
+	{
+		line = get_next_line(fd);
+    	printf("%s -- (%zu)\n\n", line, ft_strlen(line));
+	}
+	free(line);
     close(fd);
 
     return (0);
 }
-*/
